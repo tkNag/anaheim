@@ -1,0 +1,24 @@
+version: '3'
+services:
+  anaheim_webapp:
+    container_name: ahm_webapp
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile_webapp
+    volumes:
+      - ./workdir:/workdir
+    working_dir: /workdir
+    ports:
+      - 8088:8088
+    tty: true
+  anaheim_sandbox:
+    container_name: ahm_sandbox
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile_sandbox
+    volumes:
+      - ./workdir_sbx:/workdir_sbx
+    working_dir: /workdir_sbx
+    ports:
+      - 8085:8088
+    tty: true
