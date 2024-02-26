@@ -34,23 +34,23 @@ Stepper = html.Div(
             children=[
                 dmc.StepperStep(
                     label="First Step",
-                    description="first step",
+                    description="create basement",
                     children=dmc.Text(
-                        "Step 1 content: first", align="center"
+                        "Step 1 Base Architecture", align="center"
                     ),
                 ),
                 dmc.StepperStep(
                     label="Second Step",
-                    description="second step",
+                    description="add computational blocks",
                     children=dmc.Text(
-                        "Step 2 content: second", align="center"
+                        "Step 2 Computational Blocks / Sub-modules", align="center"
                     ),
                 ),
                 dmc.StepperStep(
                     label="Third Step",
-                    description="third step",
+                    description="augment params",
                     children=dmc.Text(
-                        "Step 3 content: third", align="center"
+                        "Step 3 Hyper parameters Modification", align="center"
                     ),
                 ),
             ]
@@ -88,32 +88,76 @@ Navbar = dmc.Navbar(
 YmlPreview = html.Div(
     [
         dmc.Drawer(
+            title="Preview (Hydra Yaml)",
             id="yml_preview",
             zIndex=10000,
             size="55%",
             padding="md",
             position="right",
             children=[
-                dmc.Text('hoghoge')
+                dmc.Text('Check your network architecture'),
+                dmc.Spoiler(
+                    showLabel="Show more",
+                    hideLabel="Hide",
+                    maxHeight=150,
+                    children=[
+                        dmc.Code(
+                            """
+                                use_gpu: True
+
+                                model:
+                                name: "ViT"
+                                image_size: 72  # We'll resize input images to this size
+                                patch_size: 6  # Size of the patches to be extract from the input images
+                                projection_dim: 64
+                                num_heads: 4
+                                transformer_layers: 8
+                                mlp_head_units: [2048, 1024]  # Size of the dense layers of the final classifier
+                                num_classes: 100
+
+                                train:
+                                learning_rate: 0.001
+                                weight_decay: 0.0001
+                                batch_size: 100
+                                num_epochs: 100
+                            """,
+                            block=True
+                        )
+                    ]
+                )
             ]
         ),
         dmc.Group(
-            align="center",
             spacing="xl",
             children=[
-                dmc.Button("Preview (Yaml)", id="open_preview"),
-            ]
+                dmc.Button("Preview (Yaml)", id="open_preview", style={"align": "right"}),
+            ],
+            style={
+                "marginBottom": "5px"
+            }
         )
     ]
 )
 
+Footer = html.Div(
+    dmc.Footer(
+        height=120,
+        fixed=True,
+        children=[
+            dmc.Text("Fujifilm Software, inc. Division of Development, NS/NPS.")
+        ],
+        style={
+            "backgroundColor": "#f7f9fa"
+        }
+    ),
+)
+
 app.layout = html.Div([
     html.Div(
-
         dmc.Header(
             height=70,
             children=[
-                dmc.Image("/assets/text-1708161623047.png", width=180)
+                dmc.Image("../assets/text-1708161623047.png", width=180)
             ]
         )
     ),
@@ -121,7 +165,10 @@ app.layout = html.Div([
         children=[
             dmc.Container(
                 Stepper,
-                size="lg"
+                size="lg",
+                style={
+                    "marginTop": "15px"
+                }
             ),
             dmc.Container(
                 children=[
@@ -134,10 +181,12 @@ app.layout = html.Div([
                     ),
                 ],
                 size = "lg",
-                style={"height": "85vh", "width": "100%"}
+                style={"sizes": "lg", "marginBottom": 20, "height": "75dvh", "width": "100%"}
+                # style={"height": "80vh", "width": "100%"}
             )
         ]
-    )
+    ),
+    Footer
 ])
 
 @callback(
