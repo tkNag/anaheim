@@ -1,0 +1,22 @@
+FROM tensorflow/tensorflow:2.13.0-gpu-jupyter
+
+RUN apt-get update
+RUN apt-get install -y libglib2.0-0 libsm6 libxrender1 libxext6 libgl1-mesa-dev
+
+RUN pip3 install numpy matplotlib pandas hydra-core tfds-nightly opencv-python tensorflow-addons
+
+# ユーザーを作成
+ARG UID=1000
+RUN useradd -m -u ${UID} user
+
+# プロジェクトフォルダを/codeに追加する。ユーザー権限で扱えるようchownオプションを使う。
+# ADDの実行権者はrootなのでオプションが必要。
+ADD  --chown=user:user . /workdir
+# RUN chown user:user -R /workdir
+
+# 作成したユーザーに切り替える
+# このユーザーはRUN, CMD, ENTRYPOINT, docker run, exec の実行ユーザ。
+USER ${UID}
+
+# 作成したフォルダに移動し、パッケージリストをインストールする。
+WORKDIR /workdir

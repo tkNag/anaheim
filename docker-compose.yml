@@ -22,3 +22,12 @@ services:
     ports:
       - 8085:8088
     tty: true
+  anaheim_keras:
+    container_name: ahm_keras
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile_tf
+    volumes:
+      - ./workdir:/workdir
+    working_dir: /workdir
+    tty: true

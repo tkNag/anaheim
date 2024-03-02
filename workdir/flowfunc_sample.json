@@ -1,0 +1,152 @@
+{
+    "nWmSPiWh-0": {
+        "id": "nWmSPiWh-0",
+        "x": -127.99998474121094,
+        "y": -642.7999877929688,
+        "type": "nodes.display",
+        "width": 200,
+        "connections": {
+            "inputs": {},
+            "outputs": {
+                "object": [
+                    {
+                        "nodeId": "IsflGyeEJo",
+                        "portName": "df"
+                    },
+                    {
+                        "nodeId": "xfgMGDn2gC",
+                        "portName": "markdown"
+                    }
+                ]
+            }
+        },
+        "inputData": {
+            "output1": {
+                "object": null
+            },
+            "output2": {
+                "object": null
+            },
+            "output3": {
+                "object": null
+            },
+            "output4": {
+                "object": null
+            },
+            "output5": {
+                "object": null
+            }
+        }
+    },
+    "IsflGyeEJo": {
+        "id": "IsflGyeEJo",
+        "x": -304,
+        "y": -304.79998779296875,
+        "type": "nodes.group_and_aggregate",
+        "width": 200,
+        "connections": {
+            "inputs": {
+                "df": [
+                    {
+                        "nodeId": "nWmSPiWh-0",
+                        "portName": "object"
+                    }
+                ]
+            },
+            "outputs": {
+                "result": [
+                    {
+                        "nodeId": "TjRc-5Hj_Y",
+                        "portName": "output2"
+                    }
+                ]
+            }
+        },
+        "inputData": {
+            "df": {
+                "DataFrame": null
+            },
+            "groupby": {
+                "groupby": "hogehoge"
+            },
+            "aggregations": {
+                "aggregations": [
+                    "max",
+                    "mean",
+                    "min"
+                ]
+            }
+        }
+    },
+    "TjRc-5Hj_Y": {
+        "id": "TjRc-5Hj_Y",
+        "x": -104.01248168945312,
+        "y": 66.20001220703125,
+        "type": "nodes.display",
+        "width": 200,
+        "connections": {
+            "inputs": {
+                "output1": [
+                    {
+                        "nodeId": "xfgMGDn2gC",
+                        "portName": "object"
+                    }
+                ],
+                "output2": [
+                    {
+                        "nodeId": "IsflGyeEJo",
+                        "portName": "result"
+                    }
+                ]
+            },
+            "outputs": {}
+        },
+        "inputData": {
+            "output1": {
+                "object": null
+            },
+            "output2": {
+                "object": null
+            },
+            "output3": {
+                "object": null
+            },
+            "output4": {
+                "object": null
+            },
+            "output5": {
+                "object": null
+            }
+        }
+    },
+    "xfgMGDn2gC": {
+        "id": "xfgMGDn2gC",
+        "x": 56.006256103515625,
+        "y": -277.79998779296875,
+        "type": "nodes.markdown",
+        "width": 200,
+        "connections": {
+            "inputs": {
+                "markdown": [
+                    {
+                        "nodeId": "nWmSPiWh-0",
+                        "portName": "object"
+                    }
+                ]
+            },
+            "outputs": {
+                "object": [
+                    {
+                        "nodeId": "TjRc-5Hj_Y",
+                        "portName": "output1"
+                    }
+                ]
+            }
+        },
+        "inputData": {
+            "markdown": {
+                "groupby": ""
+            }
+        }
+    }
+}
